@@ -1,5 +1,6 @@
 import pygame
 from network import Network
+from player import Player
 
 width = 500
 height = 500
@@ -8,34 +9,7 @@ pygame.display.set_caption("client")
 
 clientNumber = 0
 
-class Player():
-    def __init__(self, x, y, width, height, color):
-        self.x = x
-        self.y = y
-        self.width = width
-        self.height = height
-        self.color = color
-        self.rect = (x, y, width, height)
-        self.val = 3
 
-    def draw(self, win):
-        pygame.draw.rect(win, self.color, self.rect)
-
-    def move(self):
-        # dict of all the keys with value 0 or 1
-        keys = pygame.key.get_pressed()
-        if keys[pygame.K_LEFT]:
-            self.x -= self.val
-        if keys[pygame.K_RIGHT]:
-            self.x += self.val
-        if keys[pygame.K_UP]:
-            self.y -= self.val
-        if keys[pygame.K_DOWN]:
-            self.y += self.val
-        self.update()
-
-    def update(self):
-        self.rect = (self.x, self.y, self.width, self.height)
 # "x,y" -> (x, y)
 def read_pos(s):
     print(f"reading pos: {s}")

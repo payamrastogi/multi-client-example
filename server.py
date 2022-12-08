@@ -4,7 +4,7 @@ import socket
 from _thread import start_new_thread
 import sys
 
-server = "172.20.186.53"
+server = "172.25.190.192"
 port = 5555
 
 # setup socket
@@ -33,7 +33,7 @@ def make_pos(tup):
 # starting position of players
 pos = [(0, 0), (100, 100)]
 def threaded_client(conn, player):
-    conn.send(str.encode(make_pos(pos[player])))
+    conn.send(str.encode(make_pos(pos[player%2])))
     reply = ""
     while True:
         # receive data from the client
