@@ -1,17 +1,18 @@
 import socket
-
+# serialize objects
+import pickle
 class Network:
     def __init__(self):
         self.client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.server = "172.25.190.192"
         self.port = 5555
         self.addr = (self.server, self.port)
-        self.pos = self.connect()
+        self.p = self.connect()
         # should print connected
         # print(self.id)
 
-    def getPos(self):
-        return self.pos
+    def getP(self):
+        return self.p
 
     def connect(self):
         try:
@@ -19,14 +20,14 @@ class Network:
             self.client.connect(self.addr)
             print("Connected")
             # immediately send something
-            return self.client.recv(2048).decode()
+            return pickle.loads(self.client.recv(2048))
         except socket.error as e:
             print(e)
 
     def send(self, data):
         try:
-            self.client.send(str.encode(data))
-            return self.client.recv(2048).decode()
+            self.client.send(pickle.dumps(data))
+            return pickle.loads(self.client.recv(2048))
         except socket.error as e:
             print(e)
 
